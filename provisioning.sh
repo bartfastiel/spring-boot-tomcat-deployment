@@ -15,7 +15,7 @@ export TOMCAT_HOME=$INSTALLATION_DIR/apache-tomcat-9.0.67
 cat >$TOMCAT_HOME/conf/tomcat-users.xml <<EOL
 <?xml version="1.0" encoding="UTF-8"?>
 <tomcat-users xmlns="http://tomcat.apache.org/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd" version="1.0">
-  <user username="$TOMCAT_USER" password="$TOMCAT_PWD" roles="manager-gui"/>
+  <user username="$TOMCAT_USER" password="$TOMCAT_PWD" roles="manager-gui,manager-script"/>
 </tomcat-users>
 EOL
 
