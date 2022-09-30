@@ -29,6 +29,10 @@ cat >$TOMCAT_HOME/webapps/manager/META-INF/context.xml <<EOL
 </Context>
 EOL
 
+# redirect port 8080 to port 80 (both locally and for remote requests)
+sudo iptables -t nat -p tcp --dport 80 -j REDIRECT --to-ports 8080 -I OUTPUT -d 127.0.0.1
+sudo iptables -t nat -p tcp --dport 80 -j REDIRECT --to-ports 8080 -I PREROUTING
+
 # restart tomcat
 $TOMCAT_HOME/bin/startup.sh
 
