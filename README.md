@@ -10,6 +10,9 @@ Example project to deploy a spring boot application into a tomcat instance
 * connect to the instance via SSH
 
 ```bash
+export TOMCAT_USER=admin
+export TOMCAT_PWD=`openssl rand -base64 12`
+
 # download java and tomcat
 wget -c https://download.oracle.com/java/19/latest/jdk-19_linux-x64_bin.tar.gz -O - | tar -xz
 wget -c https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.67/bin/apache-tomcat-9.0.67.tar.gz -O - | tar -xz
@@ -18,7 +21,7 @@ wget -c https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.67/bin/apache-tomcat-9.0.6
 cat >apache-tomcat-9.0.67/conf/tomcat-users.xml <<EOL
 <?xml version="1.0" encoding="UTF-8"?>
 <tomcat-users xmlns="http://tomcat.apache.org/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd" version="1.0">
-  <user username="admin" password="s3cret" roles="manager-gui"/>
+  <user username="$TOMCAT_USER" password="$TOMCAT_PWD" roles="manager-gui"/>
 </tomcat-users>
 EOL
 
@@ -33,9 +36,12 @@ cat >apache-tomcat-9.0.67/webapps/manager/META-INF/context.xml <<EOL
 EOL
 
 # restart tomcat
-JAVA_HOME=`pwd`/jdk-19
-apache-tomcat-9.0.67/bin/shutdown.sh
+export JAVA_HOME=`pwd`/jdk-19
 apache-tomcat-9.0.67/bin/startup.sh
+
+printf "\n\n\nPlease use these credential to use the tomcat manager app:\nUsername: $TOMCAT_USER\nPassword: $TOMCAT_PWD\n\n\n"
+read -p "Press any key to resume ..."
+
 tail -f apache-tomcat-9.0.67/logs/*
 
 ```
