@@ -1,15 +1,16 @@
 export TOMCAT_USER=admin
 export TOMCAT_PWD=`openssl rand -base64 12`
 export INSTALLATION_DIR=/opt/webserver
+export TOMCAT_VERSION=9.0.68
 
 # download java and tomcat
 sudo mkdir /opt/webserver
 sudo chown -R $USER:$USER $INSTALLATION_DIR
 wget -c https://download.oracle.com/java/19/latest/jdk-19_linux-x64_bin.tar.gz -O - | tar -xz --directory $INSTALLATION_DIR
-wget -c https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.68/bin/apache-tomcat-9.0.68.tar.gz -O - | tar -xz  --directory $INSTALLATION_DIR
+wget -c https://dlcdn.apache.org/tomcat/tomcat-9/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz -O - | tar -xz  --directory $INSTALLATION_DIR
 
 export JAVA_HOME=$INSTALLATION_DIR/jdk-19
-export TOMCAT_HOME=$INSTALLATION_DIR/apache-tomcat-9.0.68
+export TOMCAT_HOME=$INSTALLATION_DIR/apache-tomcat-$TOMCAT_VERSION
 
 # define user and password for tomcat-api-access
 cat >$TOMCAT_HOME/conf/tomcat-users.xml <<EOL
