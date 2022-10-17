@@ -9,7 +9,7 @@ wget -c https://download.oracle.com/java/19/latest/jdk-19_linux-x64_bin.tar.gz -
 wget -c https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.68/bin/apache-tomcat-9.0.68.tar.gz -O - | tar -xz  --directory $INSTALLATION_DIR
 
 export JAVA_HOME=$INSTALLATION_DIR/jdk-19
-export TOMCAT_HOME=$INSTALLATION_DIR/apache-tomcat-9.0.67
+export TOMCAT_HOME=$INSTALLATION_DIR/apache-tomcat-9.0.68
 
 # define user and password for tomcat-api-access
 cat >$TOMCAT_HOME/conf/tomcat-users.xml <<EOL
