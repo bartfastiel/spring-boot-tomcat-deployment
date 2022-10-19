@@ -7,6 +7,7 @@ export TOMCAT_VERSION=9.0.68
 sudo mkdir /opt/webserver
 sudo chown -R $USER:$USER $INSTALLATION_DIR
 wget -c https://download.oracle.com/java/19/latest/jdk-19_linux-x64_bin.tar.gz -O - | tar -xz --directory $INSTALLATION_DIR
+mv /opt/webserver/jdk* /opt/webserver/jdk-19
 wget -c https://dlcdn.apache.org/tomcat/tomcat-9/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz -O - | tar -xz  --directory $INSTALLATION_DIR
 
 export JAVA_HOME=$INSTALLATION_DIR/jdk-19
