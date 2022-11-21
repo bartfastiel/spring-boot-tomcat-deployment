@@ -10,7 +10,7 @@ export JAVA_HOME=\$INSTALLATION_DIR/jdk-19
 export TOMCAT_HOME=\$INSTALLATION_DIR/tomcat-\$TOMCAT_MAJOR_VERSION
 EOL
 
-sh ~/.bash_profile
+source ~/.bash_profile
 
 export TOMCAT_PWD=`openssl rand -base64 12`
 
