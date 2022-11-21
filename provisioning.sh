@@ -1,17 +1,26 @@
+cat >>~/.bash_profile <<EOL
+
 export TOMCAT_USER=admin
-export TOMCAT_PWD=`openssl rand -base64 12`
 export INSTALLATION_DIR=/opt/webserver
-export TOMCAT_VERSION=9.0.68
+export TOMCAT_MAJOR_VERSION=9
+export TOMCAT_MINOR_VERSION=0
+export TOMCAT_BUGFIX_VERSION=68
+export TOMCAT_VERSION=\$TOMCAT_MAJOR_VERSION.\$TOMCAT_MINOR_VERSION.\$TOMCAT_BUGFIX_VERSION
+export JAVA_HOME=\$INSTALLATION_DIR/jdk-19
+export TOMCAT_HOME=\$INSTALLATION_DIR/tomcat-\$TOMCAT_MAJOR_VERSION
+EOL
+
+sh ~/.bash_profile
+
+export TOMCAT_PWD=`openssl rand -base64 12`
 
 # download java and tomcat
-sudo mkdir /opt/webserver
+sudo mkdir $INSTALLATION_DIR
 sudo chown -R $USER:$USER $INSTALLATION_DIR
 wget -c https://download.oracle.com/java/19/latest/jdk-19_linux-x64_bin.tar.gz -O - | tar -xz --directory $INSTALLATION_DIR
-mv /opt/webserver/jdk* /opt/webserver/jdk-19
+mv $INSTALLATION_DIR/jdk* /opt/webserver/jdk-19
 wget -c https://dlcdn.apache.org/tomcat/tomcat-9/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz -O - | tar -xz  --directory $INSTALLATION_DIR
-
-export JAVA_HOME=$INSTALLATION_DIR/jdk-19
-export TOMCAT_HOME=$INSTALLATION_DIR/apache-tomcat-$TOMCAT_VERSION
+mv $INSTALLATION_DIR/apache-tomcat-$TOMCAT_VERSION $TOMCAT_HOME
 
 # define user and password for tomcat-api-access
 cat >$TOMCAT_HOME/conf/tomcat-users.xml <<EOL
