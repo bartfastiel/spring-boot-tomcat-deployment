@@ -5,7 +5,7 @@ Example project to deploy a spring boot application into a tomcat instance
 ## setup empty AWS EC2 instance
 
 * create a new EC2 instance
-  * create/reuse a security group with TPC port 80 open
+  * create/reuse a security group with TCP port 80 open
 * connect to the instance (via SSH or the web interface)
 * run this command:
     ```bash
